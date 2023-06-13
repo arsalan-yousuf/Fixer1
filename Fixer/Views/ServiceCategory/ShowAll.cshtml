@@ -1,0 +1,48 @@
+﻿@model IEnumerable<Fixer.Models.ServiceCategory>
+
+@{
+    ViewData["Title"] = "ShowAll";
+    Layout = "~/Views/Shared/_Layout_HeaderFooter.cshtml";
+}
+
+<h1>ShowAll</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.ServiceCategoryName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ServiceCategoryDescription)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ServiceCategoryByteImage)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.ServiceCategoryName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ServiceCategoryDescription)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ServiceCategoryByteImage)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.ServiceCategoryID">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.ServiceCategoryID">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.ServiceCategoryID">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

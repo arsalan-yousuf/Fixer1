@@ -1,0 +1,44 @@
+﻿@model Fixer.Models.ServiceCategory
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_Layout_HeaderFooter.cshtml";
+}
+
+<h1>Create</h1>
+
+<h4>ServiceCategory</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="ServiceCategoryName" class="control-label"></label>
+                <input asp-for="ServiceCategoryName" class="form-control" />
+                <span asp-validation-for="ServiceCategoryName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ServiceCategoryDescription" class="control-label"></label>
+                <input asp-for="ServiceCategoryDescription" class="form-control" />
+                <span asp-validation-for="ServiceCategoryDescription" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ServiceCategoryByteImage" class="control-label"></label>
+                <input asp-for="ServiceCategoryByteImage" class="form-control" />
+                <span asp-validation-for="ServiceCategoryByteImage" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
