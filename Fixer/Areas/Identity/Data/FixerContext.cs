@@ -7,6 +7,7 @@ using Fixer.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using Fixer.Models.VMs;
 
 namespace Fixer.Areas.Identity.Data
 {
@@ -28,5 +29,6 @@ namespace Fixer.Areas.Identity.Data
 
         public DbSet<ServiceCategory> Service_Category { get; set; }
         public DbSet<Service> Service { get; set; }
+        public DbSet<Fixer.Models.VMs.ServiceVM> ServiceVM { get; set; } = default!;
     }
 }

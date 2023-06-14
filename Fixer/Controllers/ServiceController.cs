@@ -38,7 +38,7 @@ namespace Fixer.Controllers
             if (servCatID != 0)
             {
                 IEnumerable<ServiceVM> result = _serviceRepo.GetServiceByCategory(servCatID);
-                return View(result);
+                return View("ServiceByCategory", result);
             }
             else
             {

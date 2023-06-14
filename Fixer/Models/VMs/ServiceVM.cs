@@ -5,6 +5,7 @@ namespace Fixer.Models.VMs
 {
     public class ServiceVM
     {
+        [Key]
         public int ServiceID { get; set; }
         public string ServiceName { get; set; }
         public string ServiceDescription { get; set; }
