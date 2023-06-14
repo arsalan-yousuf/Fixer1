@@ -40,9 +40,9 @@ namespace Fixer.Repositories
             return _context.Service.ToList();
         }
 
-        public List<ServiceVM> GetServiceByCategory(int CategoryId)
+        public IEnumerable<ServiceVM> GetServiceByCategory(int CategoryId)
         {
-            var result = new List<ServiceVM>();
+            List<ServiceVM> result = new List<ServiceVM>();
 
             if (CategoryId != 0)
             {

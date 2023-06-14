@@ -8,7 +8,7 @@ namespace Fixer.Repositories
         public int CreateService(Service service);
         public int UpdateService(Service service);
         public int DeleteService(int serviceId);
-        public List<ServiceVM> GetServiceByCategory(int CategoryId);
+        public IEnumerable<ServiceVM> GetServiceByCategory(int CategoryId);
         public List<Service> GetAllService(string sortOrder);
     }
 }

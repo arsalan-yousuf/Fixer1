@@ -4,7 +4,9 @@
 @inject SignInManager<FixerUser> SignInManager
 @inject UserManager<FixerUser> UserManager
 
-<ul class="navbar-nav">
+@*<ul class="navbar-nav>*@
+<ul>
+
 @if (SignInManager.IsSignedIn(User))
 {
     <li class="nav-item">
@@ -18,10 +20,10 @@
 }
 else
 {
-    <li class="nav-item">
+    <li>
         <a class="nav-link text-dark" id="register" asp-area="Identity" asp-page="/Account/Register">Register</a>
     </li>
-    <li class="nav-item">
+    <li>
         <a class="nav-link text-dark" id="login" asp-area="Identity" asp-page="/Account/Login">Login</a>
     </li>
 }

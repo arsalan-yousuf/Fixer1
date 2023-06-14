@@ -3,13 +3,19 @@ using Microsoft.EntityFrameworkCore;
 using Fixer.Areas.Identity.Data;
 using Fixer.Configuration;
 using Fixer.Services;
+using Fixer.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
 var connectionString = builder.Configuration.GetConnectionString("Default") ?? throw new InvalidOperationException("Connection string 'Default' not found.");
 
+builder.Services.AddScoped<I_ServiceCategoryRepo, ServiceCategoryRepo>();
+builder.Services.AddScoped<I_ServiceRepo, ServiceRepo>();
+
 builder.Services.AddDbContext<FixerContext>(options => options.UseSqlServer(connectionString));
 
-builder.Services.AddDefaultIdentity<FixerUser>(options => options.SignIn.RequireConfirmedAccount = true).AddEntityFrameworkStores<FixerContext>();
+builder.Services.AddDefaultIdentity<FixerUser>(options => options.SignIn.RequireConfirmedAccount = true)
+    .AddRoles<IdentityRole>()
+    .AddEntityFrameworkStores<FixerContext>();
 
 //Email Confihuration
 builder.Services.AddTransient<IEmailService, EmailService>();
