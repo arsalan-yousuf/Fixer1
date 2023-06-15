@@ -1,66 +1,50 @@
-﻿@model IEnumerable<Fixer.Models.VMs.ServiceVM>
+﻿@model List<Fixer.Models.VMs.ServiceVM>
 
 @{
     ViewData["Title"] = "ServiceByCategory";
     Layout = "~/Views/Shared/_Layout_HeaderFooter.cshtml";
 }
 
-<h1>ServiceByCategory</h1>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.ServiceByteImage)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ServiceName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ServiceDescription)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ServiceStockQty)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ServicePrice)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ServiceCategoryName)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                <img height="50" width="50" src="data:image/png;base64,@Convert.ToBase64String(item.ServiceByteImage)" />
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ServiceName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ServiceDescription)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ServiceStockQty)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ServicePrice)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ServiceCategoryName)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.ServiceID">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.ServiceID">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.ServiceID">Delete</a>
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+<!-- product section -->
+<div class="product-section mt-150 mb-150">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 offset-lg-2 text-center">
+                <div class="section-title">
+                    <h3>@ViewBag.ServiceCat.ServiceCategoryName</h3>
+                    <p>@ViewBag.ServiceCat.ServiceCategoryDescription</p>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+        @for (int i = 0; i < Model.Count; i++)
+        {
+                <div class="col-lg-4 col-md-6 text-center">
+                    <div class="single-product-item">
+                        <div class="product-image">
+                            <img src="data:image/png;base64,@Convert.ToBase64String(Model[i].ServiceByteImage)" alt="@Model[i].ServiceName">
+                        </div>
+                        <h3>@Model[i].ServiceName</h3>
+                        <p class="product-price"><span>@Model[i].ServiceDescription</span> Rs. @Model[i].ServicePrice </p>
+                        <button onclick="addToCart(@Model[i].ServiceID)" class="cart-btn btn btn-primary"><i class="fas fa-shopping-cart"></i> Add to Cart</button>
+                    </div>
+                </div>
+        }
+        </div>
+    </div>
+</div>
+<!-- end product section -->
+<script>
+    function addToCart(serviceID){
+        $.ajax({
+            type: "GET",
+            url: "/Cart/AddToCart?serviceID=" + serviceID,
+
+            success: function (res) {
+                console.log(res);
+                showModal(res);
+            }
+        })
+    }
+</script>

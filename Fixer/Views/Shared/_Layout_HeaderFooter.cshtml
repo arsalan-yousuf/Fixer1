@@ -7,7 +7,7 @@
 	<meta name="description" content="Responsive Bootstrap4 Shop Template, Created by Imran Hossain from https://imransdesign.com/">
 
 	<!-- title -->
-	<title>Fruitkha</title>
+	<title>Fixer</title>
 
 	<!-- favicon -->
 	<link rel="shortcut icon" type="image/png" href="assets/img/favicon.png">
@@ -50,21 +50,18 @@
 					<div class="main-menu-wrap">
 						<!-- logo -->
 						<div class="site-logo">
-							<a href="index.html">
-								<img src="assets/img/logo.png" alt="">
+							<a asp-controller="ServiceCategory" asp-action="ShowAll">
+								<h2 style="color:#F28123">Fixer</h2>
 							</a>
 						</div>
 						<!-- logo -->
 						<!-- menu start -->
 						<nav class="main-menu">
 							<ul>
-								<li class="current-list-item">
+								<li>
 									<a href="#">Home</a>
 								</li>
-								<li><a href="about.html">About</a></li>
-								<li>
-									<a href="#">Pages</a>
-								</li>
+								<li class="current-list-item"><a asp-controller="ServiceCategory" asp-action="ShowAll">Services</a></li>
 								<li>
 									<a href="news.html">News</a>
 								</li>
@@ -75,17 +72,17 @@
 										<li><a href="#">Shop</a></li>
 										<li><a href="#">Check Out</a></li>
 										<li><a href="#">Single Product</a></li>
-										<li><a href="#">Cart</a></li>
+										<li><button class="nav-link" onclick="$(" #modal1").modal('show')">Cart</button></li>
 									</ul>
 								</li>
 								<li>
 									<div class="header-icons">
-										<a class="shopping-cart" href="cart.html"><i class="fas fa-shopping-cart"></i></a>
-										<a class="mobile-hide search-bar-icon" href="#"><i class="fas fa-search"></i></a>
+										<button class="shopping-cart" onclick="$(" #modal1").modal('show')"><i class="fas fa-shopping-cart"></i></button>
+										<partial name="_LoginPartial"></partial>
 									</div>
 								</li>
 							</ul>
-							<partial name="_LoginPartial"></partial>
+							
 						</nav>
 						<a class="mobile-show search-bar-icon" href="#"><i class="fas fa-search"></i></a>
 						<div class="mobile-menu"></div>
@@ -115,13 +112,13 @@
 	</div>
 	<!-- end search area -->
 	<!-- breadcrumb-section -->
-	<div class="breadcrumb-section breadcrumb-bg">
-		<div class="container">
+	<div class="breadcrumb-section">
+		<div class="container" style="background-image:src('../../wwwroot/assets/img/breadcrumb-bg.jpg')">
 			<div class="row">
 				<div class="col-lg-8 offset-lg-2 text-center">
 					<div class="breadcrumb-text">
-						<p>We sale fresh fruits</p>
-						<h1>About Us</h1>
+						<p>We love to serve you</p>
+						<h1>Services</h1>
 					</div>
 				</div>
 			</div>
@@ -136,7 +133,7 @@
 			<div class="row">
 				<div class="col-lg-3 col-md-6">
 					<div class="footer-box about-widget">
-						<h2 class="widget-title">About us</h2>
+						<h2 class="widget-title">Services</h2>
 						<p>Ut enim ad minim veniam perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae.</p>
 					</div>
 				</div>
@@ -198,6 +195,21 @@
 		</div>
 	</div>
 	<!-- end copyright -->
+
+	<div id="modal1" class="modal fade bd-example-modal-lg" tabindex="-1">
+		<div class="modal-dialog modal-lg">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title">Your Cart</h5>
+					@*<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>*@
+				</div>
+				<div class="modal-body">
+				</div>
+				<div class="modal-footer">
+				</div>
+			</div>
+		</div>
+	</div>
 	<!-- jquery -->
 	<script src="~/assets/js/jquery-1.11.3.min.js"></script>
 	<!-- bootstrap -->
@@ -218,6 +230,12 @@
 	<script src="~/assets/js/sticker.js"></script>
 	<!-- main js -->
 	<script src="~/assets/js/main.js"></script>
+	<script>
+		function showModal(res){
+			$(".modal-body").html(res),
+				$("#modal1").modal('show')
+		}
+	</script>
 	@await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

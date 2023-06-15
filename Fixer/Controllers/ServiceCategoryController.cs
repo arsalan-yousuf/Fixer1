@@ -1,8 +1,10 @@
 ﻿using Fixer.Models;
 using Fixer.Models.VMs;
 using Fixer.Repositories;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.Data;
 using System.Numerics;
 
 namespace Fixer.Controllers
@@ -17,12 +19,13 @@ namespace Fixer.Controllers
             _serviceCategoryRepo = serviceCategoryRepo;
             _serviceRepo = serviceRepo;
         }
-
+        [Authorize(Roles = "Admin")]
         public IActionResult Create()
         {
             return View();
         }
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         public IActionResult Create(ServiceCategory servCat)
         {
             MemoryStream stream = new MemoryStream();   //used to convert file to byte array
@@ -31,6 +34,7 @@ namespace Fixer.Controllers
             _serviceCategoryRepo.CreateServiceCategory(servCat);
             return RedirectToAction("ShowAll");
         }
+        [Authorize(Roles = "Admin")]
         public IActionResult Remove(int id)
         {
             _serviceCategoryRepo.DeleteServiceCategory(id);
@@ -40,6 +44,7 @@ namespace Fixer.Controllers
         {
             return View(_serviceCategoryRepo.GetAllServiceCategory("asc"));
         }
+        [Authorize(Roles = "Admin")]
         public IActionResult Edit(int id, ServiceCategory servCat)
         {
             _serviceCategoryRepo.UpdateServiceCategory(servCat);

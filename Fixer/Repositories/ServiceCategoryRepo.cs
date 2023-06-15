@@ -44,5 +44,9 @@ namespace Fixer.Repositories
             _context.Service_Category.Update(servCat);
             return _context.SaveChanges();
         }
+        public ServiceCategory GetServiceCategory(int servCatId)
+        {
+            return _context.Service_Category.Where(a => a.ServiceCategoryID == servCatId).SingleOrDefault();
+        }
     }
 }

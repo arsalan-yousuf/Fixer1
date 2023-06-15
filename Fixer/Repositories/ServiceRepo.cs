@@ -40,7 +40,7 @@ namespace Fixer.Repositories
             return _context.Service.ToList();
         }
 
-        public IEnumerable<ServiceVM> GetServiceByCategory(int CategoryId)
+        public List<ServiceVM> GetServiceByCategory(int CategoryId)
         {
             List<ServiceVM> result = new List<ServiceVM>();
 
@@ -71,5 +71,19 @@ namespace Fixer.Repositories
             _context.Service.Update(service);
             return _context.SaveChanges();
         }
+        public CartItem GetServiceCartItem(int serviceID)
+        {
+            Service service = _context.Service.Where(a => a.ServiceID == serviceID).SingleOrDefault();
+            return new CartItem
+            {
+                Name = service.ServiceName,
+                ByteImage = service.ServiceByteImage,
+                Quantity = 1,
+                ServiceID = service.ServiceID,
+                ServicePrice = service.ServicePrice,
+                TotalPrice = service.ServicePrice
+            };
+        }
+
     }
 }

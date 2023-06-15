@@ -9,6 +9,6 @@ namespace Fixer.Repositories
         public int UpdateServiceCategory(ServiceCategory servCat);
         public int DeleteServiceCategory(int servCatId);
         public List<ServiceCategory> GetAllServiceCategory(string sortOrder);
-        //List<DoctorVM> DoctByDeptorDay(int deptId, string day);
+        public ServiceCategory GetServiceCategory(int servCatId);
     }
 }

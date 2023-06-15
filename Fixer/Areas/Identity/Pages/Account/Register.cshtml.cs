@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Text.Encodings.Web;
+using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
@@ -22,22 +23,33 @@ namespace Fixer.Areas.Identity.Pages.Account
     {
         private readonly SignInManager<FixerUser> _signInManager;
         private readonly UserManager<FixerUser> _userManager;
-        private readonly ILogger<RegisterModel> _logger;
+		private readonly IUserStore<FixerUser> _userStore;
+		private readonly IUserEmailStore<FixerUser> _emailStore;
+		private readonly ILogger<RegisterModel> _logger;
         private readonly IEmailSender _emailSender;
+		private readonly RoleManager<IdentityRole> _roleManager;
 
-        public RegisterModel(
+
+		public RegisterModel(
             UserManager<FixerUser> userManager,
-            SignInManager<FixerUser> signInManager,
+			IUserStore<FixerUser> userStore,
+			SignInManager<FixerUser> signInManager,
             ILogger<RegisterModel> logger,
-            IEmailSender emailSender)
-        {
-            _userManager = userManager;
-            _signInManager = signInManager;
+            IEmailSender emailSender,
+			RoleManager<IdentityRole> roleManager)
+
+		{
+			_userManager = userManager;
+			_userStore = userStore;
+			_emailStore = GetEmailStore();
+			_signInManager = signInManager;
             _logger = logger;
             _emailSender = emailSender;
-        }
+			_roleManager = roleManager;
 
-        [BindProperty]
+		}
+
+		[BindProperty]
         public InputModel Input { get; set; }
 
         public string ReturnUrl { get; set; }
@@ -46,6 +58,12 @@ namespace Fixer.Areas.Identity.Pages.Account
 
         public class InputModel
         {
+            [Required]
+            [Display(Name = "First Name")]
+            public string First_Name { get; set; }
+            [Required]
+            [Display(Name = "Last Name")]
+            public string Last_Name { get; set; }
             [Required]
             [EmailAddress]
             [Display(Name = "Email")]
@@ -75,13 +93,27 @@ namespace Fixer.Areas.Identity.Pages.Account
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
             if (ModelState.IsValid)
             {
-                var user = new FixerUser { UserName = Input.Email, Email = Input.Email };
-                var result = await _userManager.CreateAsync(user, Input.Password);
+                var user = CreateUser();
+				user.First_Name = Input.First_Name;
+				user.Last_Name = Input.Last_Name;
+				//var user = new FixerUser {
+				//                UserName = Input.Email, 
+				//                Email = Input.Email, 
+				//                First_Name = Input.First_Name,
+				//                Last_Name = Input.Last_Name
+				//            };
+				await _userStore.SetUserNameAsync(user, Input.Email, CancellationToken.None);
+				await _emailStore.SetEmailAsync(user, Input.Email, CancellationToken.None);
+
+				var result = await _userManager.CreateAsync(user, Input.Password);
                 if (result.Succeeded)
                 {
                     _logger.LogInformation("User created a new account with password.");
+					var userId = await _userManager.GetUserIdAsync(user);
 
-                    var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
+					await _userManager.AddToRoleAsync(user, "Admin");
+
+					var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
                     code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
                     var callbackUrl = Url.Page(
                         "/Account/ConfirmEmail",
@@ -111,5 +143,27 @@ namespace Fixer.Areas.Identity.Pages.Account
             // If we got this far, something failed, redisplay form
             return Page();
         }
-    }
+		private FixerUser CreateUser()
+		{
+			try
+			{
+				return Activator.CreateInstance<FixerUser>();
+			}
+			catch
+			{
+				throw new InvalidOperationException($"Can't create an instance of '{nameof(FixerUser)}'. " +
+					$"Ensure that '{nameof(FixerUser)}' is not an abstract class and has a parameterless constructor, or alternatively " +
+					$"override the register page in /Areas/Identity/Pages/Account/Register.cshtml");
+			}
+		}
+
+		private IUserEmailStore<FixerUser> GetEmailStore()
+		{
+			if (!_userManager.SupportsUserEmail)
+			{
+				throw new NotSupportedException("The default UI requires a user store with email support.");
+			}
+			return (IUserEmailStore<FixerUser>)_userStore;
+		}
+	}
 }

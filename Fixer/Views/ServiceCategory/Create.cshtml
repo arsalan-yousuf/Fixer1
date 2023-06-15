@@ -5,38 +5,44 @@
     Layout = "~/Views/Shared/_Layout_HeaderFooter.cshtml";
 }
 
-<h1>Create</h1>
+<div class="checkout-section mt-150 mb-150">
+    <div class="container">
+        <div class="row">
+            <h1>Create</h1>
 
-<h4>ServiceCategory</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Create" enctype="multipart/form-data">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="ServiceCategoryName" class="control-label"></label>
-                <input asp-for="ServiceCategoryName" class="form-control" />
-                <span asp-validation-for="ServiceCategoryName" class="text-danger"></span>
+            <h4>ServiceCategory</h4>
+            <hr />
+            <div class="row">
+                <div class="col-md-4">
+                    <form asp-action="Create" enctype="multipart/form-data">
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                        <div class="form-group">
+                            <label asp-for="ServiceCategoryName" class="control-label"></label>
+                            <input asp-for="ServiceCategoryName" class="form-control" />
+                            <span asp-validation-for="ServiceCategoryName" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="ServiceCategoryDescription" class="control-label"></label>
+                            <input asp-for="ServiceCategoryDescription" class="form-control" />
+                            <span asp-validation-for="ServiceCategoryDescription" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="ServiceCategoryPicture" class="control-label"></label>
+                            <input type="file" asp-for="ServiceCategoryPicture" class="form-control" />
+                            <span asp-validation-for="ServiceCategoryPicture" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <input type="submit" value="Create" class="btn btn-primary" />
+                        </div>
+                    </form>
+                </div>
             </div>
-            <div class="form-group">
-                <label asp-for="ServiceCategoryDescription" class="control-label"></label>
-                <input asp-for="ServiceCategoryDescription" class="form-control" />
-                <span asp-validation-for="ServiceCategoryDescription" class="text-danger"></span>
+
+            <div>
+                <a asp-action="Index">Back to List</a>
             </div>
-            <div class="form-group">
-                <label asp-for="ServiceCategoryPicture" class="control-label"></label>
-                <input type="file" asp-for="ServiceCategoryPicture" class="form-control" />
-                <span asp-validation-for="ServiceCategoryPicture" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
-            </div>
-        </form>
+        </div>
     </div>
-</div>
-
-<div>
-    <a asp-action="Index">Back to List</a>
 </div>
 
 @section Scripts {

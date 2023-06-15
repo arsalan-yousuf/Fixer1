@@ -1,0 +1,84 @@
+﻿@model Fixer.Models.Cart
+@using Microsoft.AspNetCore.Identity
+@using Fixer.Areas.Identity.Data
+
+@inject SignInManager<FixerUser> SignInManager
+@inject UserManager<FixerUser> UserManager
+<!-- cart -->
+<div class="cart-section mt-150 mb-150">
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-12 col-md-12">
+				<div class="cart-table-wrap">
+					<table class="cart-table">
+						<thead class="cart-table-head">
+							<tr class="table-head-row">
+								@*<th class="product-remove"></th>*@
+								<th class="product-image"></th>
+								<th class="product-name">Name</th>
+								<th class="product-price">Price</th>
+								<th class="product-quantity">Quantity</th>
+								<th class="product-total">Total</th>
+							</tr>
+						</thead>
+						<tbody>
+							@for (int i = 0; i < Model.CartList.Count; i++)
+							{
+								<tr class="table-body-row">
+									@*<td class="product-remove"><a href="#"><i class="far fa-window-close"></i></a></td>*@
+									<td class="product-image"><img src="data:image/png;base64,@Convert.ToBase64String(Model.CartList[i]. ByteImage)" alt="@Model.CartList[i].Name"></td>
+									<td class="product-name">@Model.CartList[i].Name</td>
+									<td class="product-price">Rs. @Model.CartList[i].ServicePrice</td>
+									<td class="product-quantity"><input disabled value="@Model.CartList[i].Quantity" type="number" placeholder="0" onchange="updateServiceTotal(this, @i, @Model.CartList[i].ServicePrice)"></td>
+									<td class="product-total">Rs. @Model.CartList[i].TotalPrice</td>
+
+									@*<td id="serviceTotal+@i" class="product-total">Rs. @Model.CartList[i].TotalPrice</td>*@
+								</tr>
+							}
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+		<div class="row"></div>
+		<div class="row">
+			<div class="col-lg-12">
+				<div class="total-section">
+					<table class="total-table">
+						<thead class="total-table-head">
+							<tr class="table-total-row">
+								<th>Total</th>
+								<th>Price</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr class="total-data">
+								<td><strong>Total: </strong></td>
+								<td>@Model.CartTotal</td>
+							</tr>
+						</tbody>
+					</table>
+					<div class="cart-buttons">
+						@if (SignInManager.IsSignedIn(User))
+						{
+							<a class="boxed-btn black" asp-controller="Cart" asp-action="Checkout">Check Out</a>
+						}
+						else
+						{
+							<a asp-area="Identity" asp-page="/Account/Register" class="boxed-btn black">Check Out</a>
+						}
+					</div>
+				</div>
+
+			</div>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- end cart -->
+
+<script>
+	//function updateServiceTotal(ele, itemIndex, servicePrice){
+	//	document.getElementById("serviceTotal" + itemIndex).innerHTML = "Rs. " + (servicePrice* Number(ele.target.value))
+	//}
+</script>
