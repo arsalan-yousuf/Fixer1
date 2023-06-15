@@ -4,63 +4,71 @@
     ViewData["Title"] = "ShowAll";
     Layout = "~/Views/Shared/_Layout_HeaderFooter.cshtml";
 }
+<div class="product-section mt-80 mb-80">
+    <div class="container">
+        <div class="row">
+            <h1>Services Admin_View</h1>
 
-<h1>ShowAll</h1>
-
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.ServiceByteImage)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ServiceName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ServiceDescription)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ServiceStockQty)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ServicePrice)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ServiceCategoryID)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                <img height="50" width="50" src="data:image/png;base64,@Convert.ToBase64String(item.ServiceByteImage)" />
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ServiceName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ServiceDescription)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ServiceStockQty)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ServicePrice)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ServiceCategoryID)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.ServiceID">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.ServiceID">Details</a> |
-                <a asp-action="Remove" asp-route-id="@item.ServiceID">Delete</a>
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>
+                            Image
+                            @*@Html.DisplayNameFor(model => model.ServiceByteImage)*@
+                        </th>
+                        <th>
+                            Service Name
+                            @*@Html.DisplayNameFor(model => model.ServiceName)*@
+                        </th>
+                        <th>
+                            Service Description
+                            @*@Html.DisplayNameFor(model => model.ServiceDescription)*@
+                        </th>
+                        <th>
+                            Service Stock Qty
+                            @*@Html.DisplayNameFor(model => model.ServiceStockQty)*@
+                        </th>
+                        <th>
+                            Service Price
+                            @*@Html.DisplayNameFor(model => model.ServicePrice)*@
+                        </th>
+                        <th>
+                            Service Category ID
+                            @*@Html.DisplayNameFor(model => model.ServiceCategoryID)*@
+                        </th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+            @foreach (var item in Model) {
+                    <tr>
+                        <td>
+                            <img height="50" width="50" src="data:image/png;base64,@Convert.ToBase64String(item.ServiceByteImage)" />
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ServiceName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ServiceDescription)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ServiceStockQty)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ServicePrice)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ServiceCategoryID)
+                        </td>
+                        <td>
+                            <a asp-action="Edit" asp-route-id="@item.ServiceID">Edit</a> |
+                            <a asp-action="Details" asp-route-id="@item.ServiceID">Details</a> |
+                            <a asp-action="Remove" asp-route-id="@item.ServiceID">Delete</a>
+                        </td>
+                    </tr>
+            }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

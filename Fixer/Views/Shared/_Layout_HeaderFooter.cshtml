@@ -61,8 +61,28 @@
 								<li>
 									<a href="#">Home</a>
 								</li>
-								<li class="current-list-item"><a asp-controller="ServiceCategory" asp-action="ShowAll">Services</a></li>
-								<li>
+								@if(User.IsInRole("Admin")) //the following td will only be visible to ADMIN role
+								{
+									<li>
+										<a href="#" >Service Category</a>
+										<ul class="sub-menu">
+											<li><a asp-controller="ServiceCategory" asp-action="Create">Add</a></li>
+											<li><a asp-controller="ServiceCategory" asp-action="ShowAllAdmin">Show All</a></li>
+										</ul>
+									</li>
+									<li>
+										<a href="#">Services</a>
+										<ul class="sub-menu">
+											<li><a asp-controller="Service" asp-action="Create">Add</a></li>
+											<li><a asp-controller="Service" asp-action="ShowAll">Show All</a></li>
+										</ul>
+									</li>
+								}
+								else
+								{
+									<li class="current-list-item"><a asp-controller="ServiceCategory" asp-action="ShowAll">Services</a></li>
+								}
+								@*<li>
 									<a href="news.html">News</a>
 								</li>
 								<li><a href="#">Contact</a></li>
@@ -74,10 +94,10 @@
 										<li><a href="#">Single Product</a></li>
 										<li><button class="nav-link" onclick="$(" #modal1").modal('show')">Cart</button></li>
 									</ul>
-								</li>
+								</li>*@
 								<li>
 									<div class="header-icons">
-										<button class="shopping-cart" onclick="$(" #modal1").modal('show')"><i class="fas fa-shopping-cart"></i></button>
+										<button class="shopping-cart btn btn-primary" onclick="$(" #modal1").modal('show')"><i class="fas fa-shopping-cart"></i></button>
 										<partial name="_LoginPartial"></partial>
 									</div>
 								</li>
@@ -112,8 +132,8 @@
 	</div>
 	<!-- end search area -->
 	<!-- breadcrumb-section -->
-	<div class="breadcrumb-section">
-		<div class="container" style="background-image:src('../../wwwroot/assets/img/breadcrumb-bg.jpg')">
+	<div class="breadcrumb-section breadcrumb-bg">
+		<div class="container">
 			<div class="row">
 				<div class="col-lg-8 offset-lg-2 text-center">
 					<div class="breadcrumb-text">

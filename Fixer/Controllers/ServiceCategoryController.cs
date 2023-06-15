@@ -50,6 +50,11 @@ namespace Fixer.Controllers
             _serviceCategoryRepo.UpdateServiceCategory(servCat);
             return RedirectToAction("ShowAll");
         }
+        [Authorize(Roles = "Admin")]
+        public IActionResult ShowAllAdmin()
+        {
+            return View(_serviceCategoryRepo.GetAllServiceCategory("asc"));
+        }
 
 
     }

@@ -96,12 +96,7 @@ namespace Fixer.Areas.Identity.Pages.Account
                 var user = CreateUser();
 				user.First_Name = Input.First_Name;
 				user.Last_Name = Input.Last_Name;
-				//var user = new FixerUser {
-				//                UserName = Input.Email, 
-				//                Email = Input.Email, 
-				//                First_Name = Input.First_Name,
-				//                Last_Name = Input.Last_Name
-				//            };
+
 				await _userStore.SetUserNameAsync(user, Input.Email, CancellationToken.None);
 				await _emailStore.SetEmailAsync(user, Input.Email, CancellationToken.None);
 
@@ -110,8 +105,6 @@ namespace Fixer.Areas.Identity.Pages.Account
                 {
                     _logger.LogInformation("User created a new account with password.");
 					var userId = await _userManager.GetUserIdAsync(user);
-
-					await _userManager.AddToRoleAsync(user, "Admin");
 
 					var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
                     code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));

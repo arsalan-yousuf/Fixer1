@@ -1,5 +1,7 @@
 ﻿using Fixer.Areas.Identity.Data;
 using Fixer.Models;
+using Microsoft.AspNetCore.Authorization;
+using System.Data;
 
 namespace Fixer.Repositories
 {
@@ -10,12 +12,13 @@ namespace Fixer.Repositories
         {
             _context = context;
         }
+        [Authorize(Roles = "Admin")]
         public int CreateServiceCategory(ServiceCategory servCat)
         {
             _context.Service_Category.Add(servCat);
             return _context.SaveChanges();
         }
-
+        [Authorize(Roles = "Admin")]
         public int DeleteServiceCategory(int servCatId)
         {
             _context.Service_Category.Remove(_context.Service_Category.Where(a => a.ServiceCategoryID == servCatId).SingleOrDefault());
@@ -38,7 +41,7 @@ namespace Fixer.Repositories
             }
             return _context.Service_Category.ToList();
         }
-
+        [Authorize(Roles = "Admin")]
         public int UpdateServiceCategory(ServiceCategory servCat)
         {
             _context.Service_Category.Update(servCat);

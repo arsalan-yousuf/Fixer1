@@ -5,29 +5,29 @@
     Layout = "~/Views/Shared/_Layout_HeaderFooter.cshtml";
 }
 
-<div class="checkout-section mt-150 mb-150">
+<div class="checkout-section mt-80 mb-80">
     <div class="container">
         <div class="row">
-            <h1>Create</h1>
+            <h1>Add</h1>
 
-            <h4>ServiceCategory</h4>
+            <h4>Service Category</h4>
             <hr />
             <div class="row">
                 <div class="col-md-4">
                     <form asp-action="Create" enctype="multipart/form-data">
                         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                         <div class="form-group">
-                            <label asp-for="ServiceCategoryName" class="control-label"></label>
+                            <label asp-for="ServiceCategoryName" class="control-label">Service Category Name</label>
                             <input asp-for="ServiceCategoryName" class="form-control" />
                             <span asp-validation-for="ServiceCategoryName" class="text-danger"></span>
                         </div>
                         <div class="form-group">
-                            <label asp-for="ServiceCategoryDescription" class="control-label"></label>
+                            <label asp-for="ServiceCategoryDescription" class="control-label">Service Category Description</label>
                             <input asp-for="ServiceCategoryDescription" class="form-control" />
                             <span asp-validation-for="ServiceCategoryDescription" class="text-danger"></span>
                         </div>
                         <div class="form-group">
-                            <label asp-for="ServiceCategoryPicture" class="control-label"></label>
+                            <label asp-for="ServiceCategoryPicture" class="control-label">Service Category Picture</label>
                             <input type="file" asp-for="ServiceCategoryPicture" class="form-control" />
                             <span asp-validation-for="ServiceCategoryPicture" class="text-danger"></span>
                         </div>
@@ -38,9 +38,6 @@
                 </div>
             </div>
 
-            <div>
-                <a asp-action="Index">Back to List</a>
-            </div>
         </div>
     </div>
 </div>

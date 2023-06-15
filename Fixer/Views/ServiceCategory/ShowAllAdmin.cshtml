@@ -4,47 +4,52 @@
     ViewData["Title"] = "ShowAllAdmin";
     Layout = "~/Views/Shared/_Layout_HeaderFooter.cshtml";
 }
+<div class="product-section mt-80 mb-80">
+    <div class="container">
+        <div class="row">
+            <h1>Service Categories Admin_View</h1>
 
-<h1>ShowAllAdmin</h1>
-
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.ServiceCategoryByteImage)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ServiceCategoryName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ServiceCategoryDescription)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                <a asp-controller="Service" asp-action="ShowAll" asp-route-servCatID="@item.ServiceCategoryID">
-                    <img height="50" width="50" src="data:image/svg+xml;base64,@Convert.ToBase64String(item.ServiceCategoryByteImage)" />
-                </a>
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ServiceCategoryName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ServiceCategoryDescription)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.ServiceCategoryID">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.ServiceCategoryID">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.ServiceCategoryID">Delete</a>
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>
+                            Image
+                            @*@Html.DisplayNameFor(model => model.ServiceCategoryByteImage)*@
+                        </th>
+                        <th>
+                            Service Category Name
+                            @*@Html.DisplayNameFor(model => model.ServiceCategoryName)*@
+                        </th>
+                        <th>
+                            Description
+                            @*@Html.DisplayNameFor(model => model.ServiceCategoryDescription)*@
+                        </th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+            @foreach (var item in Model) {
+                    <tr>
+                        <td>
+                            <a asp-controller="Service" asp-action="ShowAll" asp-route-servCatID="@item.ServiceCategoryID">
+                                <img height="50" width="50" src="data:image/svg+xml;base64,@Convert.ToBase64String(item.ServiceCategoryByteImage)" />
+                            </a>
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ServiceCategoryName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ServiceCategoryDescription)
+                        </td>
+                        <td>
+                            <a asp-action="Edit" asp-route-id="@item.ServiceCategoryID">Edit</a> |
+                            <a asp-action="Details" asp-route-id="@item.ServiceCategoryID">Details</a> |
+                            <a asp-action="Delete" asp-route-id="@item.ServiceCategoryID">Delete</a>
+                        </td>
+                    </tr>
+            }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
